@@ -2,13 +2,9 @@ SHELL := /bin/bash
 
 build:
 	mvn clean package
-	podman build -t mi-test:latest . --no-cache
+	cp target/capp/mi-example_1.0.0.car mi-home/carbonapps
+	podman-compose up
 
-run:
-	podman run -d --name mi-test -p 8080:8080 mi-test:latest
-	@trap 'echo "\nMakefile received Ctrl+C - stop logging..."; exit 0' INT; \
-    	echo "logging container..."; \
-    	podman logs --follow mi-test
 
 clean:
 	mvn clean
@@ -27,6 +23,6 @@ test:
 compose-up:
 	podman-compose up
 
-compose-down:
+down:
 	podman-compose down
 

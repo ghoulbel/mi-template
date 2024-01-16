@@ -1,8 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <api context="/health" name="health-api"
     xmlns="http://ws.apache.org/ns/synapse">
-    <resource methods="GET" uri-template="*">
+    <resource methods="GET" uri-template="/">
         <inSequence>
+            <log level="custom" category="DEBUG">
+                <property name="/health" value="inSequence"/>
+            </log>
+            <payloadFactory media-type="json">
+                <format>
+                  {
+                    "status":"UP"
+                  }  
+                </format>
+                <args></args>
+            </payloadFactory>
             <respond />
         </inSequence>
         <outSequence>
